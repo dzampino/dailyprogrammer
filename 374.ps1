@@ -17,12 +17,12 @@ function Get-AdditivePersistence {
         $Iterations = 0
 
         function Convert-IntToArray ([int]$x) {
-            # Subtract ASCII value
-            Write-Output ([string]$x).ToCharArray() | ForEach-Object {$_ - 48}
+            [int[]][string[]][char[]][string]$x
         }
 
         function Add-Digits ($x) {
             $Sum = 0
+            $x = Convert-IntToArray $x
             foreach ($n in $x) {
                 $y = [int]$n
                 $Sum = $Sum + [int]$y
@@ -34,7 +34,7 @@ function Get-AdditivePersistence {
     process {
         while ($Number / 10 -ge 1) {
             $Iterations += 1
-            $Number = Add-Digits (Convert-IntToArray $Number)
+            $Number = Add-Digits $Number
         }
     }
 
